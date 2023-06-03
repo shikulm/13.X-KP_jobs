@@ -49,7 +49,7 @@ class ServiceApi(ABC):
 
 class HH(ServiceApi):
     """Класс для работы с HeadHunter"""
-    API_KEY = "API_KEY_HH"
+    api_key = "API_KEY_HH"
     def _get_from_api(self, keywords: str = None, page: int = 0):
         self.url = "https://api.hh.ru/vacancies"
         self.params = {
@@ -70,12 +70,54 @@ class SJ(ServiceApi):
             "keywords": keywords,
             "page": page
         }
+        # self.api_key = "API_KEY_SJ"
+        self.api_key = os.environ.get("API_KEY_SJ")
         headers = {"X-Api-App-Id": self.api_key}
         self.req = requests.get(self.url, headers=headers, params=self.params)
         self._data = self.req.json()["objects"]
+        # self._data = self.req.json()
         return self.req
 
 hh = HH("Программист", 0)
-sj = HH("Программист", 1)
+
+vac = []
+for item in hh._get_from_api().json()["items"]:
+    # dic_vac = {"title": item["name"],
+    #            "link": item["alternate_url"],
+    #            "description": item["snippet"],
+    #            "salary": item["salary"]["from"] if item.get("salary") else None,
+    #            "city": item["address"]["city"]}
+
+    dic_vac = {"title": item["name"],
+               "link": item["alternate_url"],
+               "description": item["snippet"]['requirement'],
+               "salary": item["salary"]["from"] if item.get("salary") else None,
+               "city": item["area"]["name"]}
+
+    vac.append(dic_vac)
+
+print(vac)
+
+sj = SJ("Программист", 1)
+
+vacsj = []
+for item in sj._get_from_api().json()["objects"]:
+    # dic_vac = {"title": item["name"],
+    #            "link": item["alternate_url"],
+    #            "description": item["snippet"],
+    #            "salary": item["salary"]["from"] if item.get("salary") else None,
+    #            "city": item["address"]["city"]}
+
+    dic_vac = {"title": item["profession"],
+               "link": item["link"],
+               "description": item["candidat"],
+               "salary": item["payment_from"],
+               "city": item["town"]["title"]}
+
+    vacsj.append(dic_vac)
+
+print(vacsj)
+
+
 hh.save_to_file(os.path.join("data", "hh.json"))
 sj.save_to_file(os.path.join("data", "sj.json"))
