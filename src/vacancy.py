@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 class Vacancy:
     """Абстрактный класс с описанием вакансий"""
 
-    __slots__ = ["__title", "__link", "__description", "__salary", "__city"]
+    __slots__ = ["__title", "__link", "__description", "__salary", "__city", "__source"]
 
     def __init__(self, title: str, link: str, description: str, salary: float, city: str, source: str) -> None:
         """Инициализируем описание вакансии основными характеристками"""
@@ -15,9 +15,12 @@ class Vacancy:
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__slots__})"
+        # return f"{self.__class__.__name__}(" \
+        #        f"{[self.__getattribute__(item) for item in self.__slots__]})"
 
     def __str__(self):
-        return f"Вакансия {self.title} из города {self.city} с зарплатой {self.salary} ({self.description})"
+        # return f"Вакансия {self.title} из города {self.city} с зарплатой {self.salary} ({self.description})"
+        return f"Вакансия {self.title} из города {self.city} с зарплатой {self.salary}"
 
     def __gt__(self, other) -> bool:
         try:
@@ -33,7 +36,7 @@ class Vacancy:
             sal2 = 0 if other.salary is None else other.salary
             return sal1 < sal2
         except AttributeError:
-        return False
+            return False
 
     def __eq__(self, other) -> bool:
         try:
@@ -80,7 +83,7 @@ class Vacancy:
     def salary(self, vsalary):
         if isinstance(vsalary, float) or isinstance(vsalary, int) or vsalary is None:
             self.__salary = vsalary
-        if vsalary < 0:
+        if vsalary is not None and vsalary < 0:
             self.__salary = 0
 
     @property
@@ -92,20 +95,29 @@ class Vacancy:
         if isinstance(vcity, str):
             self.__city = vcity
 
+    @property
+    def source(self):
+        return self.__source
 
-# title: str, link: str, description: str, salary: float, city: str
-j1 = Vacancy("Программст", "https:/", "нужно проагрммировать", None, "Астрахань", 'HH')
-print(repr(j1))
-print(j1)
-print()
+    @source.setter
+    def source(self, vsource):
+        if isinstance(vsource, str):
+            self.__source = vsource
 
-j2 = Vacancy("Дворник", "https:/", "нужно убирать двор", 100000, "Астрахань", 'SJ')
-print(repr(j2))
-print(j2)
-print()
-print(f"j1>j2: {j1>j2}")
-print(f"j1>0: {j1>0}")
-# print(f"j1>=j2: {j1>=j2}")
-print(f"j1<j2: {j1<j2}")
-# print(f"j1<=j2: {j1<=j2}")
-print(f"j1==j2: {j1==j2}")
+
+# # title: str, link: str, description: str, salary: float, city: str
+# j1 = Vacancy("Программст", "https:/", "нужно проагрммировать", None, "Астрахань", 'HH')
+# print(repr(j1))
+# print(j1)
+# print()
+#
+# j2 = Vacancy("Дворник", "https:/", "нужно убирать двор", 100000, "Астрахань", 'SJ')
+# print(repr(j2))
+# print(j2)
+# print()
+# print(f"j1>j2: {j1>j2}")
+# print(f"j1>0: {j1>0}")
+# # print(f"j1>=j2: {j1>=j2}")
+# print(f"j1<j2: {j1<j2}")
+# # print(f"j1<=j2: {j1<=j2}")
+# print(f"j1==j2: {j1==j2}")

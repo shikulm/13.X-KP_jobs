@@ -1,3 +1,4 @@
+from vacancy import Vacancy
 from service_api import HH, SJ
 from abc import ABC, abstractmethod
 import json
@@ -80,12 +81,32 @@ class Vacancies(VacanciesOperation, FileManager):
 
         new_jobs_list = []
         for job in old_jobs_list:
-            if all(job.get(key)[0] <= value <= job.get(key)[1] if isinstance(job.get(key), list) else job.get(key) == value
-                   for key, value in query.items()):
+            # flag = true
+            # for key, value in query.items()):
+            #     if isinstance(job.get(key), list):
+            #     #
+
+            if all((0 if value[0] is None else value[0]) <= -1 if job.get(key) is None else job.get(key) <= (100000000 if value[1] is None else value[1])
+                    if isinstance(value, list) else job.get(key) == value
+                    for key, value in query.items()):
             # if all(job.get(key) == value for key, value in query.items()):/
                 new_jobs_list.append(job)
 
-        return new_jobs_list
+            # title: str, link: str, description: str, salary: float, city: str, source: str
+        return [Vacancy(
+                title=item.get("title"),
+                link=item.get("link"),
+                description=item.get("description"),
+                salary=item.get("salary"),
+                city=item.get("city"),
+                source=item.get("source"))
+                    for item in new_jobs_list]
+
+        # return new_jobs_list
+
+    def clear_data(self):
+        with open(self.filename, 'w', encoding='utf-8') as file:
+            file.write(json.dumps([]))
 
 
 class VacanciesHH(Vacancies):
@@ -99,6 +120,7 @@ class VacanciesHH(Vacancies):
         page_start - с какой страницы извлекаем данные
         page_count - какое количество страниц созраняем"""
         # self.filename = filename
+        # self.clear_data()
         for page in range(page_start, page_start + page_count + 1):
             hh = HH(keywords, page)
             for item in hh.get_from_api(keywords, page).json()["items"]:
@@ -122,6 +144,7 @@ class VacanciesSJ(Vacancies):
         page_start - с какой страницы извлекаем данные
         page_count - какое количество страниц созраняем"""
         # self.filename = filename
+        # self.clear_data()
         for page in range(page_start, page_start + page_count + 1):
 
             sj = SJ(keywords, page)
@@ -136,10 +159,13 @@ class VacanciesSJ(Vacancies):
 
 
 hh_vacancies = VacanciesHH(os.path.join("data", "jobs.json"))
+hh_vacancies.clear_data()
 hh_vacancies.save_api_to_file("Программист", 0, 2)
 sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
 hh_vacancies.save_api_to_file("Программист", 1, 2)
 
 vac = Vacancies(os.path.join("data", "jobs.json"))
 # vac.delete_vacancy({"city": "Минск"})/
-print(vac.search({"city": "Минск", "salary": [10000, 100000]}))
+# print("\n".join(vac.search({"city": "Алматы", "salary": [None, 50000]})))
+# print(vac.search({"city": "Алматы"}))
+[print(el) for el in vac.search({"city": "Алматы", "salary": [None, 50000]})]
