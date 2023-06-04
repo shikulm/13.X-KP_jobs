@@ -1,63 +1,26 @@
-from src.service_api import *
 from vacancy import Vacancy
-from vacancies_operation import Vacancies
+import statistics
+from vacancies_operation import Vacancies, VacanciesHH, VacanciesSJ
 
 
-def save_hh(keywords, page_start=0, page_count=2):
-    """Сохраняет все считанные вакансии из HH  в файл"""
-    hh = HH("Программист", page_start)
+def sorting(vacancies: list[Vacancy]) -> list[Vacancy]:
+    """Сортировка вакансий по убыванию"""
+    return sorted(vacancies)
 
-    vac = []
-    for page in range(page_start, page_start+page_count+1):
-        for item in hh._get_from_api().json()["items"]:
+def get_top(vacancies: list[Vacancy], top_count: int) -> list[Vacancy]:
+    """Сортировка вакансий по убыванию"""
+    return sorted(vacancies, reverse=True)[:top_count]
 
-            dic_vac = {"title": item["name"],
-                       "link": item["alternate_url"],
-                       "description": item["snippet"]['requirement'],
-                       "salary": item["salary"]["from"] if item.get("salary") else None,
-                       "city": item["area"]["name"]}
+def get_statistics(vacancies: list[Vacancy]) -> dict:
+    """Вычисляет стастику по списку вакансий"""
+    cnt = len(vacancies)
+    salary_lst = [el["salary"] for el in vacancies if el["salary"] is not None]
+    min_salary = min(salary_lst)
+    max_salary = max(salary_lst)
+    avg_salary = round(statistics.mean(salary_lst), 2)
 
-
-hh = HH("Программист", 0)
-
-vac = []
-for item in hh._get_from_api().json()["items"]:
-    # dic_vac = {"title": item["name"],
-    #            "link": item["alternate_url"],
-    #            "description": item["snippet"],
-    #            "salary": item["salary"]["from"] if item.get("salary") else None,
-    #            "city": item["address"]["city"]}
-
-    dic_vac = {"title": item["name"],
-               "link": item["alternate_url"],
-               "description": item["snippet"]['requirement'],
-               "salary": item["salary"]["from"] if item.get("salary") else None,
-               "city": item["area"]["name"]}
-
-    vac.append(dic_vac)
-
-print(vac)
-
-sj = SJ("Программист", 1)
-
-vacsj = []
-for item in sj._get_from_api().json()["objects"]:
-    # dic_vac = {"title": item["name"],
-    #            "link": item["alternate_url"],
-    #            "description": item["snippet"],
-    #            "salary": item["salary"]["from"] if item.get("salary") else None,
-    #            "city": item["address"]["city"]}
-
-    dic_vac = {"title": item["profession"],
-               "link": item["link"],
-               "description": item["candidat"],
-               "salary": item["payment_from"],
-               "city": item["town"]["title"]}
-
-    vacsj.append(dic_vac)
-
-print(vacsj)
+    return {"cnt": cnt, "min_salary": min_salary, "max_salary": max_salary, "avg_salary": avg_salary}
 
 
-hh.save_to_file(os.path.join("data", "hh.json"))
-sj.save_to_file(os.path.join("data", "sj.json"))
+
+
