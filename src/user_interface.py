@@ -15,8 +15,11 @@ class UserInterface:
 
     def print_vacancies(self, vacancies: list[Vacancy]) -> None:
         """Вывод на экран вакансий"""
-        vacan = utils.sorting(vacancies)
-        [print(el) for el in vacan]
+        if len(vacancies) == 0:
+            print("Вакансии не найдены")
+        else:
+            vacan = utils.sorting(vacancies)
+            [print(el) for el in vacan]
 
     def get_keyword(self):
         print(f"Введите ключевые слова для поиска вакансий. \nДля нескольких ключевых слов в качестве разделителя используйте запятую")
@@ -153,7 +156,7 @@ class UserInterface:
                         us_sel = self.__user_input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']}", query_user[id_q]['type'])
                         query_dic[query_user[id_q]['attr_name']] = us_sel
 
-                # Получаем и выводим отфильтрованные дданные
+                # Получаем и выводим отфильтрованные данные
                 print()
                 vacancies_lst = self.vacancies.search(query_dic)
                 self.print_vacancies(vacancies_lst)
@@ -171,9 +174,10 @@ class UserInterface:
 
     def main_menu(self):
         """Главное меню для выбора вариантов"""
+        print()
         print("Выберите, что вы хотите получить?")
-        print("1 - Статстику по вакансиям")
-        print("2 - Список вакансий, офильтрованный по вашим критериям")
+        print("1 - Статистику по вакансиям")
+        print("2 - Список вакансий, отфильтрованный по вашим критериям")
         print("3 - Вакансии с наибольшей зарплатой")
         print("0 - Завершить работу")
         while True:
@@ -190,6 +194,7 @@ class UserInterface:
                     self.print_filter_vacacies()
                 elif us_sel == 3:
                    self.print_top()
+                return True
 
     def __init__(self, page_count=3):
         # Количество страниц из источника, по котрым нужно получать данные
@@ -202,8 +207,11 @@ class UserInterface:
 
         # Получаем данные из источника по ключевым словам
         if self.get_keyword():
-            while self.main_menu():
-                pass
+            while True:
+                print()
+                if not self.main_menu():
+                    print("Благодарим за использование нашей проагрммы!")
+                    return
             # self.print_statistics(self.vacancies.search())
 
             # self.print_filter_vacacies()
@@ -215,14 +223,3 @@ class UserInterface:
 ui = UserInterface()
 
 
-# hh_vacancies = VacanciesHH(os.path.join("data", "jobs.json"))
-# hh_vacancies.clear_data()
-# hh_vacancies.save_api_to_file("Программист", 0, 2)
-# sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
-# hh_vacancies.save_api_to_file("Программист", 1, 2)
-
-vac = Vacancies(os.path.join("data", "jobs.json"))
-# vac.delete_vacancy({"city": "Минск"})/
-# print("\n".join(vac.search({"city": "Алматы", "salary": [None, 50000]})))
-# print(vac.search({"city": "Алматы"}))
-[print(el) for el in vac.search({"city": "Алматы", "salary": [None, 50000]})]
