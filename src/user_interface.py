@@ -68,7 +68,7 @@ class UserInterface:
 
     def print_top(self):
         """Выод top вакансий"""
-        print("Какое количество вакансий с максимальной зарплатаой вы хотите получить?")
+        print("Какое количество вакансий с наибольшей зарплатой вы хотите получить?")
         while True:
             top_count = self.__user_input("", 'int')
             if top_count <= 0:
@@ -169,6 +169,28 @@ class UserInterface:
                 print(f"Вы должны указать числа в интевале от 0 до {len(query_user)}")
                 continue
 
+    def main_menu(self):
+        """Главное меню для выбора вариантов"""
+        print("Выберите, что вы хотите получить?")
+        print("1 - Статстику по вакансиям")
+        print("2 - Список вакансий, офильтрованный по вашим критериям")
+        print("3 - Вакансии с наибольшей зарплатой")
+        print("0 - Завершить работу")
+        while True:
+            us_sel = self.__user_input("", 'int')
+            if us_sel not in range(4):
+                print("Число должно быть от 1 до 3")
+                continue
+            else:
+                if us_sel == 0:
+                    return False
+                elif us_sel == 1:
+                    self.print_statistics()
+                elif us_sel == 2:
+                    self.print_filter_vacacies()
+                elif us_sel == 3:
+                   self.print_top()
+
     def __init__(self, page_count=3):
         # Количество страниц из источника, по котрым нужно получать данные
         self.vacancies = None
@@ -180,9 +202,13 @@ class UserInterface:
 
         # Получаем данные из источника по ключевым словам
         if self.get_keyword():
-            self.print_statistics(self.vacancies.search())
+            while self.main_menu():
+                pass
+            # self.print_statistics(self.vacancies.search())
 
             # self.print_filter_vacacies()
+
+            # self.print_top()
         else:
             return
 

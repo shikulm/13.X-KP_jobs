@@ -136,19 +136,19 @@
         "source": "HH"
     },
     {
-        "title": "Frontend-разработчик (Удаленно)",
-        "link": "https://hh.ru/vacancy/81483816",
-        "description": "Опыт работы с Figma. Несколько учебных проектов на React. Понимание Tailwind CSS(если не знаете, посмотрите перед собеседованием). ",
-        "salary": null,
-        "city": "Уфа",
-        "source": "HH"
-    },
-    {
         "title": "Front-end разработчик (стажер)",
         "link": "https://hh.ru/vacancy/80946255",
         "description": "В сопроводительном письме присылайте ссылки на разработанные вами сайты (минимум 3). React Native/React/Next.js. CSS3/SCSS. HTML5. ",
         "salary": 30000,
         "city": "Москва",
+        "source": "HH"
+    },
+    {
+        "title": "Frontend-разработчик (Удаленно)",
+        "link": "https://hh.ru/vacancy/81483816",
+        "description": "Опыт работы с Figma. Несколько учебных проектов на React. Понимание Tailwind CSS(если не знаете, посмотрите перед собеседованием). ",
+        "salary": null,
+        "city": "Уфа",
         "source": "HH"
     },
     {
@@ -192,11 +192,11 @@
         "source": "HH"
     },
     {
-        "title": "Программист JavaScript",
-        "link": "https://hh.ru/vacancy/81474952",
-        "description": "Опыт работы с Javascript, jQuery. Базовые знания react, html и css. Понимание SPA, PWA, promises, ES6, websocket, ajax. ",
-        "salary": null,
-        "city": "Минск",
+        "title": "Junior / middle iOS Developer (офис)",
+        "link": "https://hh.ru/vacancy/81469876",
+        "description": "Уметь пользоваться iPhone ).",
+        "salary": 30000,
+        "city": "Киров (Кировская область)",
         "source": "HH"
     },
     {
@@ -208,11 +208,11 @@
         "source": "HH"
     },
     {
-        "title": "Junior / middle iOS Developer (офис)",
-        "link": "https://hh.ru/vacancy/81469876",
-        "description": "Уметь пользоваться iPhone ).",
-        "salary": 30000,
-        "city": "Киров (Кировская область)",
+        "title": "Программист JavaScript",
+        "link": "https://hh.ru/vacancy/81474952",
+        "description": "Опыт работы с Javascript, jQuery. Базовые знания react, html и css. Понимание SPA, PWA, promises, ES6, websocket, ajax. ",
+        "salary": null,
+        "city": "Минск",
         "source": "HH"
     },
     {
@@ -224,6 +224,14 @@
         "source": "HH"
     },
     {
+        "title": "Стажер frontend разработчик",
+        "link": "https://hh.ru/vacancy/81119516",
+        "description": "Взаимодействовать с наставниками и перенимать их опыт. Получаешь высшее техническое образование. Имеешь хорошие теоретические знания Javascript, React / .Net, Java. ",
+        "salary": null,
+        "city": "Москва",
+        "source": "HH"
+    },
+    {
         "title": "Junior Frontend Developer (React.js)",
         "link": "https://hh.ru/vacancy/81396806",
         "description": "Уверенные знания HTML5, CSS3. Базовые знания и минимальный опыт разработки на JavaScript. Опыт работы с фреймворками React.js / Next.js. ",
@@ -232,10 +240,10 @@
         "source": "HH"
     },
     {
-        "title": "Стажер frontend разработчик",
-        "link": "https://hh.ru/vacancy/81119516",
-        "description": "Взаимодействовать с наставниками и перенимать их опыт. Получаешь высшее техническое образование. Имеешь хорошие теоретические знания Javascript, React / .Net, Java. ",
-        "salary": null,
+        "title": "Разработчик Android / Junior Android разработчик",
+        "link": "https://hh.ru/vacancy/81475167",
+        "description": "Уверенное владение языком Java/Kotlin. Умение работать с code inject, Retrofit , GSON,Lottie, Git. Уверенные знания и понимание принципов работы...",
+        "salary": 10000,
         "city": "Москва",
         "source": "HH"
     },
@@ -253,14 +261,6 @@
         "description": "Опыт работы с React от года. Уверенное знание JS (ES6+), обязательно понимание ООП. Опыт работы React/Next.js.",
         "salary": null,
         "city": "Санкт-Петербург",
-        "source": "HH"
-    },
-    {
-        "title": "Разработчик Android / Junior Android разработчик",
-        "link": "https://hh.ru/vacancy/81475167",
-        "description": "Уверенное владение языком Java/Kotlin. Умение работать с code inject, Retrofit , GSON,Lottie, Git. Уверенные знания и понимание принципов работы...",
-        "salary": 10000,
-        "city": "Москва",
         "source": "HH"
     },
     {
@@ -304,19 +304,19 @@
         "source": "HH"
     },
     {
-        "title": "Front-End developer",
-        "link": "https://hh.ru/vacancy/81483137",
-        "description": "HTML5+JS+CSS и работа с API. Умение понимать и поддерживать чужой код. Навыки работы с системами контроля версий (мы...",
-        "salary": 3500000,
-        "city": "Ташкент",
-        "source": "HH"
-    },
-    {
         "title": "Python/Django разработчик",
         "link": "https://hh.ru/vacancy/81365828",
         "description": "Backend: Python 3.6, Django 2.1, Postgres, PHP 5.3/7. Frontend: HTML5, CSS3, JavaScript, JQuery, Bootstrap...",
         "salary": null,
         "city": "Москва",
+        "source": "HH"
+    },
+    {
+        "title": "Front-End developer",
+        "link": "https://hh.ru/vacancy/81483137",
+        "description": "HTML5+JS+CSS и работа с API. Умение понимать и поддерживать чужой код. Навыки работы с системами контроля версий (мы...",
+        "salary": 3500000,
+        "city": "Ташкент",
         "source": "HH"
     },
     {
@@ -336,14 +336,6 @@
         "source": "HH"
     },
     {
-        "title": "Начинающий разработчик",
-        "link": "https://hh.ru/vacancy/81352642",
-        "description": "Профильное образование (информационные технологии, телекоммуникации, радиотехника), старшие курсы ВУЗа или эквивалентный опыт работы. Знание современного С++ на начальном уровне. ",
-        "salary": 80000,
-        "city": "Санкт-Петербург",
-        "source": "HH"
-    },
-    {
         "title": "Junior Backend Developer (Младший программист)",
         "link": "https://hh.ru/vacancy/81057055",
         "description": "Опыт программирования на любом языке. Чтение тех. литературы на английском. SQL, опыт работы с СУБД. Умение работать в команде. Самостоятельность. ",
@@ -352,19 +344,11 @@
         "source": "HH"
     },
     {
-        "title": "Frontend-разработчик",
-        "link": "https://hh.ru/vacancy/81462695",
-        "description": "Знания React, JavaScript, ES6+, Git. Будет плюсом: SCSS, Styled-components, Laravel. Аккуратный и понятный код. Аккуратность и порядочность...",
-        "salary": 50000,
-        "city": "Омск",
-        "source": "HH"
-    },
-    {
-        "title": "Backend-разработчик (стажер)",
-        "link": "https://hh.ru/vacancy/81173444",
-        "description": "Нам не важен опыт, нам важно твое понимание процессов, знания и желание создавать, интегрировать классные продукты вместе с нами. ",
-        "salary": 30000,
-        "city": "Москва",
+        "title": "Начинающий разработчик",
+        "link": "https://hh.ru/vacancy/81352642",
+        "description": "Профильное образование (информационные технологии, телекоммуникации, радиотехника), старшие курсы ВУЗа или эквивалентный опыт работы. Знание современного С++ на начальном уровне. ",
+        "salary": 80000,
+        "city": "Санкт-Петербург",
         "source": "HH"
     },
     {
@@ -376,11 +360,27 @@
         "source": "HH"
     },
     {
+        "title": "Backend-разработчик (стажер)",
+        "link": "https://hh.ru/vacancy/81173444",
+        "description": "Нам не важен опыт, нам важно твое понимание процессов, знания и желание создавать, интегрировать классные продукты вместе с нами. ",
+        "salary": 30000,
+        "city": "Москва",
+        "source": "HH"
+    },
+    {
         "title": "Стажер-разработчик",
         "link": "https://hh.ru/vacancy/81367910",
         "description": "Высшее образование (программирование). Знание программ Java, Python, C++.",
         "salary": null,
         "city": "Москва",
+        "source": "HH"
+    },
+    {
+        "title": "Frontend-разработчик",
+        "link": "https://hh.ru/vacancy/81462695",
+        "description": "Знания React, JavaScript, ES6+, Git. Будет плюсом: SCSS, Styled-components, Laravel. Аккуратный и понятный код. Аккуратность и порядочность...",
+        "salary": 50000,
+        "city": "Омск",
         "source": "HH"
     },
     {
@@ -400,6 +400,14 @@
         "source": "HH"
     },
     {
+        "title": "Trainee front-end developer",
+        "link": "https://hh.ru/vacancy/80563037",
+        "description": "Высокий уровень знаний JavaScript/Typescript. Высокий уровень знаний React.js, Angular и/или иных библиотек и фреймворков. Высокий уровень знаний HTML...",
+        "salary": null,
+        "city": "Минск",
+        "source": "HH"
+    },
+    {
         "title": "Frontend-разработчик",
         "link": "https://hh.ru/vacancy/81372779",
         "description": "Практический опыт разработки JavaScript, TypeScript от 2- х лет. Опыт работы с любым из фреймворков: React, Vue, Angular. ",
@@ -416,11 +424,11 @@
         "source": "HH"
     },
     {
-        "title": "Trainee front-end developer",
-        "link": "https://hh.ru/vacancy/80563037",
-        "description": "Высокий уровень знаний JavaScript/Typescript. Высокий уровень знаний React.js, Angular и/или иных библиотек и фреймворков. Высокий уровень знаний HTML...",
+        "title": "Программист Python Junior",
+        "link": "https://hh.ru/vacancy/81027322",
+        "description": "Уверенное использование Python. Знание базовых структур данных и алгоритмов, способность оценивать скорость работы алгоритмов. Умение вникать в большие объемы кода. ",
         "salary": null,
-        "city": "Минск",
+        "city": "Екатеринбург",
         "source": "HH"
     },
     {
@@ -432,18 +440,18 @@
         "source": "HH"
     },
     {
-        "title": "Программист Python Junior",
-        "link": "https://hh.ru/vacancy/81027322",
-        "description": "Уверенное использование Python. Знание базовых структур данных и алгоритмов, способность оценивать скорость работы алгоритмов. Умение вникать в большие объемы кода. ",
-        "salary": null,
-        "city": "Екатеринбург",
-        "source": "HH"
-    },
-    {
         "title": "Frontend developer (React)",
         "link": "https://hh.ru/vacancy/81241076",
         "description": "Высшее техническое образование. Знание HTML, CSS, опыт кроссбраузерной вёрстки. Опыт работы с React/Redux и TypeScript. Опыт работы с Websockets...",
         "salary": 70000,
+        "city": "Москва",
+        "source": "HH"
+    },
+    {
+        "title": "Junior Android developer",
+        "link": "https://hh.ru/vacancy/81430574",
+        "description": "Мигрируем на KMM, Jetpack Compose, MVI. Хорошие фундаметальные знания Kotlin, корутин и многопоточности. Стремление к написанию понятного, поддерживаемого и тестируемого...",
+        "salary": 80000,
         "city": "Москва",
         "source": "HH"
     },
@@ -453,14 +461,6 @@
         "description": "базовые знания Python и одного из WEB-фреймворков. - базовые знания Linux. - базовые знания и принципы работы БД (CRUD, нормальные формы...",
         "salary": null,
         "city": "Алматы",
-        "source": "HH"
-    },
-    {
-        "title": "Junior Android developer",
-        "link": "https://hh.ru/vacancy/81430574",
-        "description": "Мигрируем на KMM, Jetpack Compose, MVI. Хорошие фундаметальные знания Kotlin, корутин и многопоточности. Стремление к написанию понятного, поддерживаемого и тестируемого...",
-        "salary": 80000,
-        "city": "Москва",
         "source": "HH"
     },
     {
