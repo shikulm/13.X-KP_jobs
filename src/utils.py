@@ -14,7 +14,8 @@ def get_top(vacancies: list[Vacancy], top_count: int) -> list[Vacancy]:
 def get_statistics(vacancies: list[Vacancy]) -> dict:
     """Вычисляет стастику по списку вакансий"""
     cnt = len(vacancies)
-    salary_lst = [el["salary"] for el in vacancies if el["salary"] is not None]
+    # salary_lst = [el["salary"] for el in vacancies if el["salary"] is not None]
+    salary_lst = [el.salary for el in vacancies if el.salary is not None]
     min_salary = min(salary_lst)
     max_salary = max(salary_lst)
     avg_salary = round(statistics.mean(salary_lst), 2)

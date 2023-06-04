@@ -77,7 +77,14 @@ class Vacancies(VacanciesOperation, FileManager):
 
         if not query:
             # Нет критериев поиска, значит возвращаем все
-            return old_jobs_list
+            return [Vacancy(
+                title=item.get("title"),
+                link=item.get("link"),
+                description=item.get("description"),
+                salary=item.get("salary"),
+                city=item.get("city"),
+                source=item.get("source"))
+                    for item in old_jobs_list]
 
         new_jobs_list = []
         for job in old_jobs_list:

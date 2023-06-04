@@ -15,7 +15,8 @@ class UserInterface:
 
     def print_vacancies(self, vacancies: list[Vacancy]) -> None:
         """Вывод на экран вакансий"""
-        [print(el) for el in vacancies]
+        vacan = utils.sorting(vacancies)
+        [print(el) for el in vacan]
 
     def get_keyword(self):
         print(f"Введите ключевые слова для поиска вакансий. \nДля нескольких ключевых слов в качестве разделителя используйте запятую")
@@ -40,12 +41,6 @@ class UserInterface:
             print("Для вашего запроса данные не найдены!")
             return False
 
-        # try:
-        #     # Данные найдены
-        #     jobs_list = self.vacancies.search()
-        # except json.decoder.JSONDecodeError:
-        #     # Данных нет
-        #     return False
 
     def print_statistics(self, vacancies: list[Vacancy] = None) -> None:
         """Получение и вывод статистических данных"""
@@ -55,6 +50,124 @@ class UserInterface:
         print(f"Всего вакансий: {stat_dic['cnt']}.")
         print(f"Зарплаты от {stat_dic['min_salary']} до {stat_dic['max_salary']}.")
         print(f"Средняя зарплата {stat_dic['avg_salary']}.")
+
+    def __user_input(self, txt_quest: str, type: str ='str'):
+        """Функция приглашает к вводу от пользователя запрос с определнным типом данных.
+        Пользователь будет отвечать до тех пор, пока не введет корректное значение"""
+
+        while True:
+            us_sel = input(f"{txt_quest} >> ")
+            if type == "int":
+                try:
+                    us_sel = int(us_sel)
+                    return us_sel
+                except ValueError:
+                    print("Вы должны ввести число")
+            else:
+                return us_sel
+
+    def print_top(self):
+        """Выод top вакансий"""
+        print("Какое количество вакансий с максимальной зарплатаой вы хотите получить?")
+        while True:
+            top_count = self.__user_input("", 'int')
+            if top_count <= 0:
+                print("Число должно быть положительным!")
+            else:
+                break
+
+        vacan = utils.get_top(self.vacancies.search(), top_count)
+        print()
+        self.print_vacancies(vacan)
+        print()
+        self.print_statistics(vacan)
+
+
+    def print_filter_vacacies(self):
+        """Получение списка отфильтрованных вакансий"""
+        # Список словарей для диалога с пользователем
+        # title: str, link: str, description: str, salary: float, city: str, source: str
+        query_user = [
+            {"attr_name": "title",
+             "attr_rus": "Название вакансии",
+             "between": False,
+             "options": "",
+             "type": "str"},
+            {"attr_name": "salary",
+             "attr_rus": "Зарплата",
+             "between": True,
+             "options": "",
+            "type": "int"
+            },
+            {"attr_name": "city",
+             "attr_rus": "Город",
+             "between": False,
+             "options": "",
+             "type": "str"},
+            {"attr_name": "source",
+             "attr_rus": "Источник",
+             "between": False,
+             "options": "'HH'/'SJ'",
+             "type": "str"},
+        ]
+
+        # Вывод приглашения для выбора
+        print("Выберите по каким признакам фильтровать списки вакансий.")
+        print("Можно указать несколько номеров через пробел или 0 для отмены выбора:")
+
+        while True:
+            # Выводим варианты
+            ind = 1
+            for el in query_user:
+                print(f"{ind} - {el['attr_rus']}")
+                ind += 1
+            print("0 - Отменить выбор")
+
+            try:
+                user_select = list(map(int, input(">> ").split()))
+
+                if 0 in user_select:
+                    # Прерываем выполнение, если пользователь решилд отказаться
+                    return False
+
+                # Запрашиваем значения у пользователя
+                print("\nТеперь введите значения для поиска")
+
+                query_dic = {}
+
+                for ind in user_select:
+                    id_q = ind-1
+
+                    if query_user[id_q]["between"]:
+                        # Пользователь вводит диапазон
+                        us_sel1 = self.__user_input(f"{query_user[id_q]['attr_rus']} от ", query_user[id_q]['type'])
+                        us_sel2 = self.__user_input(f"{query_user[id_q]['attr_rus']} до ", query_user[id_q]['type'])
+                        if us_sel2 < us_sel1:
+                            # Если верхняя граница меньше нижней, меняем их местами
+                            us_sel = us_sel1
+                            us_sel1 = us_sel2
+                            us_sel1 = us_sel
+                        query_dic[query_user[id_q]['attr_name']] = [us_sel1, us_sel2]
+                    else:
+                        # us_sel = input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']} >> ")
+                        us_sel = self.__user_input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']}", query_user[id_q]['type'])
+                        query_dic[query_user[id_q]['attr_name']] = us_sel
+
+                # Получаем и выводим отфильтрованные дданные
+                print()
+                vacancies_lst = self.vacancies.search(query_dic)
+                self.print_vacancies(vacancies_lst)
+                print()
+                self.print_statistics(vacancies_lst)
+
+                return True
+            except ValueError:
+                print("Вы должны ввести число")
+                continue
+
+            if not all([0 <= el <= len(query_user) for el in user_select]):
+                print(f"Вы должны указать числа в интевале от 0 до {len(query_user)}")
+                continue
 
     def __init__(self, page_count=3):
         # Количество страниц из источника, по котрым нужно получать данные
@@ -68,6 +181,8 @@ class UserInterface:
         # Получаем данные из источника по ключевым словам
         if self.get_keyword():
             self.print_statistics(self.vacancies.search())
+
+            # self.print_filter_vacacies()
         else:
             return
 
