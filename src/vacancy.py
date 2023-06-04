@@ -4,13 +4,14 @@ class Vacancy:
 
     __slots__ = ["__title", "__link", "__description", "__salary", "__city"]
 
-    def __init__(self, title: str, link: str, description: str, salary: float, city: str) -> None:
+    def __init__(self, title: str, link: str, description: str, salary: float, city: str, source: str) -> None:
         """Инициализируем описание вакансии основными характеристками"""
         self.title = title
         self.link = link
         self.description = description
         self.salary = salary
         self.city = city
+        self.source = source
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__slots__})"
@@ -93,12 +94,12 @@ class Vacancy:
 
 
 # title: str, link: str, description: str, salary: float, city: str
-j1 = Vacancy("Программст", "https:/", "нужно проагрммировать", None, "Астрахань")
+j1 = Vacancy("Программст", "https:/", "нужно проагрммировать", None, "Астрахань", 'HH')
 print(repr(j1))
 print(j1)
 print()
 
-j2 = Vacancy("Дворник", "https:/", "нужно убирать двор", 100000, "Астрахань")
+j2 = Vacancy("Дворник", "https:/", "нужно убирать двор", 100000, "Астрахань", 'SJ')
 print(repr(j2))
 print(j2)
 print()
