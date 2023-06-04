@@ -14,12 +14,12 @@ class VacanciesOperation(ABC):
         pass
 
     @abstractmethod
-    def delete_vacancy(self):
+    def delete_vacancy(self, query=None) -> None:
         """Удаляет вакансию из файлв"""
         pass
 
     @abstractmethod
-    def search(self):
+    def search(self, query=None) -> None:
         """Выбирает данные из вакансий по криетриям"""
         pass
 
@@ -42,13 +42,50 @@ class Vacancies(VacanciesOperation, FileManager):
             json.dump(jobs_list, file, indent=4, ensure_ascii=False)
             # json.dump(self.printj(jobs_list), file)
 
-    def delete_vacancy(self):
+    def delete_vacancy(self, query=None) -> None:
         """Удаляет вакансию из файлв"""
-        pass
+        try:
+            old_jobs_list = self._open_file(self.filename)
+        except json.decoder.JSONDecodeError:
+            # Удалять нечего
+            return
 
-    def search(self):
-        """Выбирает данные из вакансий по криетриям"""
-        pass
+        if not query:
+            # Нет критериев удаления
+            return
+
+        new_jobs_list = []
+        for job in old_jobs_list:
+            if not all(job.get(key) == value for key, value in query.items()):
+                new_jobs_list.append(job)
+
+        with open(self.filename, 'w', encoding='utf-8') as file:
+            json.dump(new_jobs_list, file, indent=4, ensure_ascii=False)
+
+
+    def search(self, query: dict = None) -> None:
+        """Выбирает данные из вакансий по криетриям
+        Параметр
+        query - словарь криериев значений для поиска
+        Пример: query = {"city": "Минск", "salary": [10000, 50000]} - Город Минск с зарплатой от 10000 до 50000"""
+        try:
+            old_jobs_list = self._open_file(self.filename)
+        except json.decoder.JSONDecodeError:
+            # Выбирать нечего
+            return []
+
+        if not query:
+            # Нет критериев поиска, значит возвращаем все
+            return old_jobs_list
+
+        new_jobs_list = []
+        for job in old_jobs_list:
+            if all(job.get(key)[0] <= value <= job.get(key)[1] if isinstance(job.get(key), list) else job.get(key) == value
+                   for key, value in query.items()):
+            # if all(job.get(key) == value for key, value in query.items()):/
+                new_jobs_list.append(job)
+
+        return new_jobs_list
 
 
 class VacanciesHH(Vacancies):
@@ -103,60 +140,6 @@ hh_vacancies.save_api_to_file("Программист", 0, 2)
 sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
 hh_vacancies.save_api_to_file("Программист", 1, 2)
 
-        #
-        # def save_hh(keywords, page_start=0, page_count=2):
-        #     """Сохраняет все считанные вакансии из HH  в файл"""
-        #     hh = HH("Программист", page_start)
-        #
-        #     for page in range(page_start, page_start + page_count + 1):
-        #         for item in hh.get_from_api().json()["objects"]:
-        #             dic_vac = {"title": item["name"],
-        #                        "link": item["alternate_url"],
-        #                        "description": item["snippet"]['requirement'],
-        #                        "salary": item["salary"]["from"] if item.get("salary") else None,
-        #                        "city": item["area"]["name"]}
-        #
-        # hh = HH("Программист", 0)
-        #
-        # vac = []
-        # for item in hh.get_from_api().json()["items"]:
-        #     # dic_vac = {"title": item["name"],
-        #     #            "link": item["alternate_url"],
-        #     #            "description": item["snippet"],
-        #     #            "salary": item["salary"]["from"] if item.get("salary") else None,
-        #     #            "city": item["address"]["city"]}
-        #
-        #     dic_vac = {"title": item["name"],
-        #                "link": item["alternate_url"],
-        #                "description": item["snippet"]['requirement'],
-        #                "salary": item["salary"]["from"] if item.get("salary") else None,
-        #                "city": item["area"]["name"]}
-        #
-        #     vac.append(dic_vac)
-        #
-        # print(vac)
-        #
-        # sj = SJ("Программист", 1)
-        #
-        # vacsj = []
-        # for item in sj._get_from_api().json()["objects"]:
-        #     # dic_vac = {"title": item["name"],
-        #     #            "link": item["alternate_url"],
-        #     #            "description": item["snippet"],
-        #     #            "salary": item["salary"]["from"] if item.get("salary") else None,
-        #     #            "city": item["address"]["city"]}
-        #
-        #     dic_vac = {"title": item["profession"],
-        #                "link": item["link"],
-        #                "description": item["candidat"],
-        #                "salary": item["payment_from"],
-        #                "city": item["town"]["title"]}
-        #
-        #     vacsj.append(dic_vac)
-        #
-        # print(vacsj)
-        #
-        # hh.save_to_file(os.path.join("data", "hh.json"))
-        # sj.save_to_file(os.path.join("data", "sj.json"))
-
-
+vac = Vacancies(os.path.join("data", "jobs.json"))
+# vac.delete_vacancy({"city": "Минск"})/
+print(vac.search({"city": "Минск", "salary": [10000, 100000]}))
