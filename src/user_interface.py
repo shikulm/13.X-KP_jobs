@@ -1,7 +1,9 @@
-from vacancies_operation import Vacancies, VacanciesSJ, VacanciesHH, Vacancy
+from src.vacancies_operation import Vacancies, VacanciesSJ, VacanciesHH, Vacancy
 import os
 import json
-import utils
+import src.utils
+
+
 class UserInterface:
     """Класс с пользовательским интерфейсом"""
 
@@ -12,17 +14,17 @@ class UserInterface:
         print("Вакансии парсятся с двух сайтов - Head Hunter и Suprjob")
         print()
 
-
     def print_vacancies(self, vacancies: list[Vacancy]) -> None:
         """Вывод на экран вакансий"""
         if len(vacancies) == 0:
             print("Вакансии не найдены")
         else:
-            vacan = utils.sorting(vacancies)
+            vacan = src.utils.sorting(vacancies)
             [print(el) for el in vacan]
 
     def get_keyword(self):
-        print(f"Введите ключевые слова для поиска вакансий. \nДля нескольких ключевых слов в качестве разделителя используйте запятую")
+        print(
+            f"Введите ключевые слова для поиска вакансий. \nДля нескольких ключевых слов в качестве разделителя используйте запятую")
         self.keywords = input(">> ")
         self.page_count = 2
 
@@ -44,17 +46,16 @@ class UserInterface:
             print("Для вашего запроса данные не найдены!")
             return False
 
-
     def print_statistics(self, vacancies: list[Vacancy] = None) -> None:
         """Получение и вывод статистических данных"""
         if vacancies is None:
             vacancies = self.vacancies.search()
-        stat_dic = utils.get_statistics(vacancies)
+        stat_dic = src.utils.get_statistics(vacancies)
         print(f"Всего вакансий: {stat_dic['cnt']}.")
         print(f"Зарплаты от {stat_dic['min_salary']} до {stat_dic['max_salary']}.")
         print(f"Средняя зарплата {stat_dic['avg_salary']}.")
 
-    def __user_input(self, txt_quest: str, type: str ='str'):
+    def __user_input(self, txt_quest: str, type: str = 'str'):
         """Функция приглашает к вводу от пользователя запрос с определнным типом данных.
         Пользователь будет отвечать до тех пор, пока не введет корректное значение"""
 
@@ -79,12 +80,11 @@ class UserInterface:
             else:
                 break
 
-        vacan = utils.get_top(self.vacancies.search(), top_count)
+        vacan = src.utils.get_top(self.vacancies.search(), top_count)
         print()
         self.print_vacancies(vacan)
         print()
         self.print_statistics(vacan)
-
 
     def print_filter_vacacies(self):
         """Получение списка отфильтрованных вакансий"""
@@ -100,8 +100,8 @@ class UserInterface:
              "attr_rus": "Зарплата",
              "between": True,
              "options": "",
-            "type": "int"
-            },
+             "type": "int"
+             },
             {"attr_name": "city",
              "attr_rus": "Город",
              "between": False,
@@ -139,7 +139,7 @@ class UserInterface:
                 query_dic = {}
 
                 for ind in user_select:
-                    id_q = ind-1
+                    id_q = ind - 1
 
                     if query_user[id_q]["between"]:
                         # Пользователь вводит диапазон
@@ -153,7 +153,8 @@ class UserInterface:
                         query_dic[query_user[id_q]['attr_name']] = [us_sel1, us_sel2]
                     else:
                         # us_sel = input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']} >> ")
-                        us_sel = self.__user_input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']}", query_user[id_q]['type'])
+                        us_sel = self.__user_input(f"{query_user[id_q]['attr_rus']} {query_user[id_q]['options']}",
+                                                   query_user[id_q]['type'])
                         query_dic[query_user[id_q]['attr_name']] = us_sel
 
                 # Получаем и выводим отфильтрованные данные
@@ -192,8 +193,8 @@ class UserInterface:
                     self.print_statistics()
                 elif us_sel == 2:
                     self.print_filter_vacacies()
-                elif us_sel == 3:
-                   self.print_top()
+                else:
+                    self.print_top()
                 return True
 
     def __init__(self, page_count=3):
@@ -210,16 +211,7 @@ class UserInterface:
             while True:
                 print()
                 if not self.main_menu():
-                    print("Благодарим за использование нашей проагрммы!")
+                    print("Благодарим за использование нашей программы!")
                     return
-            # self.print_statistics(self.vacancies.search())
-
-            # self.print_filter_vacacies()
-
-            # self.print_top()
         else:
             return
-
-ui = UserInterface()
-
-

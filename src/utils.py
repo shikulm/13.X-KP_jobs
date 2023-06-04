@@ -1,6 +1,6 @@
-from vacancy import Vacancy
+from src.vacancy import Vacancy
 import statistics
-from vacancies_operation import Vacancies, VacanciesHH, VacanciesSJ
+from src.vacancies_operation import Vacancies, VacanciesHH, VacanciesSJ
 
 
 def sorting(vacancies: list[Vacancy]) -> list[Vacancy]:

@@ -1,9 +1,9 @@
-from vacancy import Vacancy
-from service_api import HH, SJ
+from src.vacancy import Vacancy
+from src.service_api import HH, SJ
 from abc import ABC, abstractmethod
 import json
 import os
-from file_manager import FileManager
+from src.file_manager import FileManager
 
 
 class VacanciesOperation(ABC):
@@ -163,16 +163,3 @@ class VacanciesSJ(Vacancies):
                            "city": item["town"]["title"],
                            "source": "SJ"}
                 self.add_vacancy(dic_vac)
-
-
-# hh_vacancies = VacanciesHH(os.path.join("data", "jobs.json"))
-# hh_vacancies.clear_data()
-# hh_vacancies.save_api_to_file("Программист", 0, 2)
-# sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
-# hh_vacancies.save_api_to_file("Программист", 1, 2)
-#
-# vac = Vacancies(os.path.join("data", "jobs.json"))
-# # vac.delete_vacancy({"city": "Минск"})/
-# # print("\n".join(vac.search({"city": "Алматы", "salary": [None, 50000]})))
-# # print(vac.search({"city": "Алматы"}))
-# [print(el) for el in vac.search({"city": "Алматы", "salary": [None, 50000]})]
