@@ -148,7 +148,7 @@ class VacanciesSJ(Vacancies):
         for page in range(page_start, page_start + page_count + 1):
 
             sj = SJ(keywords, page)
-            for item in sj.get_from_api(keywords, page).json()["items"]:
+            for item in sj.get_from_api(keywords, page).json()["objects"]:
                 dic_vac = {"title": item["profession"],
                            "link": item["link"],
                            "description": item["candidat"],
@@ -158,14 +158,14 @@ class VacanciesSJ(Vacancies):
                 self.add_vacancy(dic_vac)
 
 
-hh_vacancies = VacanciesHH(os.path.join("data", "jobs.json"))
-hh_vacancies.clear_data()
-hh_vacancies.save_api_to_file("Программист", 0, 2)
-sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
-hh_vacancies.save_api_to_file("Программист", 1, 2)
-
-vac = Vacancies(os.path.join("data", "jobs.json"))
-# vac.delete_vacancy({"city": "Минск"})/
-# print("\n".join(vac.search({"city": "Алматы", "salary": [None, 50000]})))
-# print(vac.search({"city": "Алматы"}))
-[print(el) for el in vac.search({"city": "Алматы", "salary": [None, 50000]})]
+# hh_vacancies = VacanciesHH(os.path.join("data", "jobs.json"))
+# hh_vacancies.clear_data()
+# hh_vacancies.save_api_to_file("Программист", 0, 2)
+# sj_vacancies = VacanciesSJ(os.path.join("data", "jobs.json"))
+# hh_vacancies.save_api_to_file("Программист", 1, 2)
+#
+# vac = Vacancies(os.path.join("data", "jobs.json"))
+# # vac.delete_vacancy({"city": "Минск"})/
+# # print("\n".join(vac.search({"city": "Алматы", "salary": [None, 50000]})))
+# # print(vac.search({"city": "Алматы"}))
+# [print(el) for el in vac.search({"city": "Алматы", "salary": [None, 50000]})]
